@@ -30,6 +30,7 @@ import {PARCEL_VERSION} from './constants';
 
 // Default cache directory name
 const DEFAULT_CACHE_DIRNAME = '.parcel-cache';
+const ROOT_CONFIG_FILE_NAMES = ['.parcel-root-package', '.parcel-root'];
 const LOCK_FILE_NAMES = ['yarn.lock', 'package-lock.json', 'pnpm-lock.yaml'];
 
 // Generate a unique instanceId, will change on every run of parcel
@@ -83,7 +84,7 @@ export default async function resolveOptions(
     (await resolveConfig(
       inputFS,
       path.join(entryRoot, 'index'),
-      [...LOCK_FILE_NAMES, '.git', '.hg'],
+      [...ROOT_CONFIG_FILE_NAMES, ...LOCK_FILE_NAMES, '.git', '.hg'],
       path.parse(entryRoot).root,
     )) || path.join(inputCwd, 'index'); // ? Should this just be rootDir
 
